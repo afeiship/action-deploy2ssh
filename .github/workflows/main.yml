@@ -19,3 +19,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: app
           target: /mnt/vdb/wms.dicfree.cn/frontend/beta
+          rm: true
