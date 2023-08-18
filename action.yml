@@ -1,0 +1,65 @@
+name: action-deploy2ssh
+description: A composite steps for deploy frontend filesto cos.
+inputs:
+  node_version:
+    description: "The node version."
+    required: false
+    default: "16.18.0"
+  build_dist:
+    description: "The build dist folder, default is build."
+    required: false
+    default: "build"
+  oss_bucket:
+    description: "The oss bucket name."
+    required: true
+    default: "oss://you-bucket/sub-path/assets/test-app-deploy2cos/"
+
+outputs: {}
+
+runs:
+  using: "composite"
+  steps:
+    # step1: Checkout the repository
+    - uses: actions/checkout@v3
+
+    # step2: Setup Node.js
+    - name: Use Node.js ${{ inputs.node_version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node_version }}
+        # cache: 'yarn'
+
+    # step3: Cache node_modules
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+          ${{ runner.os }}-
+
+    # step4: Install dependencies
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn
+
+    # step5: Build Project
+    - name: Build Project
+      shell: bash
+      run: yarn build
+
+    # step6: Config TencentCli
+    - name: Use cos-cli
+      uses: afeiship/action-coscli@master
+
+    # step7: Deploy by coscli
+    - name: Deploy by cos
+      shell: bash
+      run: |
+        # set -e
+        coscli rm ${{ inputs.oss_bucket }} --recursive --force
+        coscli sync ${{ inputs.build_dist }}/ ${{ inputs.oss_bucket }} --recursive --thread-num=10

@@ -1,0 +1,21 @@
+name: deploy2cos workflow
+on:
+  push:
+    branches: master
+
+jobs:
+  Release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    # if: contains(github.event.head_commit.message, '__@production__')
+    steps:
+      - uses: actions/checkout@v3
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: app/.
+          target: /mnt/vdb/wms.dicfree.cn/frontend/beta

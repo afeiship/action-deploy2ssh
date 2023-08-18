@@ -1,0 +1,21 @@
+{
+  "name": "action-deploy2ssh",
+  "version": "1.0.0",
+  "description": "A composite steps for deploy frontend files to cos.",
+  "homepage": "https://js.work",
+  "author": {
+    "name": "afeiship",
+    "email": "1290657123@qq.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rm -rf build",
+    "build": "mkdir build && cp -R app/. build",
+    "release": "release-it"
+  },
+  "dependencies": {
+    "@jswork/next": "^1.1.11"
+  },
+  "gtc": "发布到 production 环境 __@production__ at 2023-08-04 16:29:21",
+  "gtcVersion": "1.0.0"
+}
