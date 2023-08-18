@@ -6,7 +6,7 @@
 1. set secret `gh secret set -f ~/.dotfiles/.servers/.env.dicfree-server`
 2. use below workflow
 ```yml
-name: deploy2cos workflow
+name: deploy2ssh workflow
 on:
   push:
     branches: master

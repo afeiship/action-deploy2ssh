@@ -1,4 +1,4 @@
-name: deploy2cos workflow
+name: deploy2ssh workflow
 on:
   push:
     branches: main

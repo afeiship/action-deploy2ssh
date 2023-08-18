@@ -12,7 +12,7 @@ inputs:
   oss_bucket:
     description: "The oss bucket name."
     required: true
-    default: "oss://you-bucket/sub-path/assets/test-app-deploy2cos/"
+    default: "oss://you-bucket/sub-path/assets/test-app-deploy2ssh/"
 
 outputs: {}
 
