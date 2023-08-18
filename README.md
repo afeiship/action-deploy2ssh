@@ -2,7 +2,8 @@
 > An action for deploy to ssh.
 
 ## usage
-1. set secret `gh secret set -f ~/.aliyun/.env.kubebio`
+<!-- ~/.dotfiles/.servers/.env.dicfree-server -->
+1. set secret `gh secret set -f ~/.dotfiles/.servers/.env.dicfree-server`
 2. use below workflow
 ```yml
 name: deploy2cos workflow
