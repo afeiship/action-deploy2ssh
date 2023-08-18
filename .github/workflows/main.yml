@@ -1,7 +1,7 @@
 name: deploy2cos workflow
 on:
   push:
-    branches: master
+    branches: main
 
 jobs:
   Release:
