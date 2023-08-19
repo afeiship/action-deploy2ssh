@@ -9,58 +9,28 @@
 name: deploy2ssh workflow
 on:
   push:
-    branches: master
+    branches: main
 
 jobs:
   Release:
     name: Release
     runs-on: ubuntu-latest
     env:
-      COS_YML: ${{ secrets.COS_YML }}
-
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
 
     if: contains(github.event.head_commit.message, '__@production__')
     steps:
-      - name: All in one
-        uses: afeiship/action-deploy2ssh@master
+      - uses: actions/checkout@v3
+      - name: copy file via ssh password
+        uses: afeiship/action-deploy2ssh@main
         with:
-          build_dist: "build"
-          oss_bucket: cos://your-cos/test/
-
-      - name: Debug
-        run: |
-          printenv
+          build_dist: app
+          oss_bucket: /mnt/vdb/wms.dicfree.cn/frontend/beta/
 ```
 
 ## for multiple envs
-
+> tobe done.
 ```yml
-name: moban-admin workflow for AliyunOSS
-on: [push]
-jobs:
-  beta:
-    runs-on: ubuntu-latest
-    env:
-      COS_YML: ${{ secrets.COS_YML }}
-
-    if: contains(github.event.head_commit.message, '__@beta__')
-    steps:
-      - name: All in one for beta
-        uses: afeiship/action-deploy2ssh@master
-        with:
-          build_dist: "dist"
-          oss_bucket: cos://your-cos/beta/
-
-  production:
-    runs-on: ubuntu-latest
-    env:
-      COS_YML: ${{ secrets.COS_YML }}
-
-    if: contains(github.event.head_commit.message, '__@production__')
-    steps:
-      - name: All in one for production
-        uses: afeiship/action-deploy2ssh@master
-        with:
-          build_dist: "dist"
-          oss_bucket: cos://your-cos/production/
 ```
