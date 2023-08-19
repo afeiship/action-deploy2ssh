@@ -9,10 +9,10 @@ inputs:
     description: "The build dist folder, default is build."
     required: false
     default: "build"
-  oss_bucket:
-    description: "The oss bucket name."
+  target_dir:
+    description: "The target dir in server, default is /data/www."
     required: true
-    default: "oss://you-bucket/sub-path/assets/test-app-deploy2ssh/"
+    default: "/data/www"
 
 outputs: {}
 
@@ -59,5 +59,5 @@ runs:
         username: $SSH_USERNAME
         password: $SSH_PASSWORD
         source: ${{ inputs.build_dist }}
-        target: ${{ inputs.oss_bucket }}
+        target: ${{ inputs.target_dir }}
         strip_components: 1

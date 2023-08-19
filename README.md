@@ -27,7 +27,7 @@ jobs:
         uses: afeiship/action-deploy2ssh@main
         with:
           build_dist: app
-          oss_bucket: /mnt/vdb/wms.dicfree.cn/frontend/beta/
+          target_dir: /mnt/vdb/wms.dicfree.cn/frontend/beta/
 ```
 
 ## for multiple envs
