@@ -18,5 +18,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: "app/*,app/*.*"
-          target: /mnt/vdb/wms.dicfree.cn/frontend/beta
+          target: /mnt/vdb/wms.dicfree.cn/frontend/beta/
+          strip_components: 1
           rm: true
