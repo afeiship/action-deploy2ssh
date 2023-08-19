@@ -51,15 +51,13 @@ runs:
     - name: Build Project
       shell: bash
       run: yarn build
-
-    # step6: Config TencentCli
-    - name: Use cos-cli
-      uses: afeiship/action-coscli@master
-
-    # step7: Deploy by coscli
-    - name: Deploy by cos
-      shell: bash
-      run: |
-        # set -e
-        coscli rm ${{ inputs.oss_bucket }} --recursive --force
-        coscli sync ${{ inputs.build_dist }}/ ${{ inputs.oss_bucket }} --recursive --thread-num=10
+    
+    - name: Copy file via ssh password
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: $SSH_HOST
+        username: $SSH_USERNAME
+        password: $SSH_PASSWORD
+        source: ${{ inputs.build_dist }}
+        target: ${{ inputs.oss_bucket }}
+        strip_components: 1
