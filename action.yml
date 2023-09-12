@@ -13,6 +13,10 @@ inputs:
     description: "The target dir in server, default is /data/www."
     required: true
     default: "/data/www"
+  scp_debug: 
+    description: "Debug mode for scp."
+    required: false
+    default: "false"
 
 outputs: {}
 
@@ -61,3 +65,4 @@ runs:
         source: ${{ inputs.build_dist }}
         target: ${{ inputs.target_dir }}
         strip_components: 1
+        debug: ${{ inputs.scp_debug }}
