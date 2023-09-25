@@ -65,5 +65,5 @@ runs:
         source: ${{ inputs.build_dist }}
         target: ${{ inputs.target_dir }}
         strip_components: 1
-        # rm: true
+        rm: true
         debug: ${{ inputs.scp_debug }}
