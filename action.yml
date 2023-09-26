@@ -17,6 +17,10 @@ inputs:
     description: "Debug mode for scp."
     required: false
     default: "false"
+  manual:
+    description: "Manual trigger for deploy."
+    required: false
+    default: "false"
 
 outputs: {}
 
@@ -56,7 +60,9 @@ runs:
       shell: bash
       run: yarn build
     
+    # step6: Copy file via ssh password
     - name: Copy file via ssh password
+      if: ${{ inputs.manual }} == 'true'
       uses: appleboy/scp-action@v0.1.4
       with:
         host: $SSH_HOST
