@@ -19,7 +19,7 @@ inputs:
     default: "false"
   scp_rm: 
     description: "Remove target dir before copy."
-    required: false
+    required: true
     default: "false"
   manual:
     description: "Manual trigger for deploy."
