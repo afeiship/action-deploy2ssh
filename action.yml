@@ -17,6 +17,10 @@ inputs:
     description: "Debug mode for scp."
     required: false
     default: "false"
+  scp_rm: 
+    description: "Remove target dir before copy."
+    required: false
+    default: "false"
   manual:
     description: "Manual trigger for deploy."
     required: false
@@ -71,5 +75,5 @@ runs:
         source: ${{ inputs.build_dist }}
         target: ${{ inputs.target_dir }}
         strip_components: 1
-        rm: true
+        rm: ${{ inputs.scp_rm }}
         debug: ${{ inputs.scp_debug }}
